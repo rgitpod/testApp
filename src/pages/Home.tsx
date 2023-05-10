@@ -1,9 +1,11 @@
-import MessageListItem from '../components/MessageListItem';
+import SectionListItem from '../components/SectionListItem';
 import { useState } from 'react';
 import { Message, getMessages } from '../data/messages';
+import sections from '../data/sections'
 import {
   IonContent,
   IonHeader,
+  IonFooter,
   IonList,
   IonPage,
   IonRefresher,
@@ -15,29 +17,10 @@ import {
 import './Home.css';
 
 const Home: React.FC = () => {
-
-  const [messages, setMessages] = useState<Message[]>([]);
-
-  useIonViewWillEnter(() => {
-    const msgs = getMessages();
-    setMessages(msgs);
-  });
-
-  const refresh = (e: CustomEvent) => {
-    setTimeout(() => {
-      e.detail.complete();
-    }, 3000);
-  };
-
   return (
     <IonPage id="home-page">
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Inbox</IonTitle>
-        </IonToolbar>
-      </IonHeader>
       <IonContent fullscreen>
-        <IonRefresher slot="fixed" onIonRefresh={refresh}>
+        <IonRefresher slot="fixed">
           <IonRefresherContent></IonRefresherContent>
         </IonRefresher>
 
@@ -50,9 +33,14 @@ const Home: React.FC = () => {
         </IonHeader>
 
         <IonList>
-          {messages.map(m => <MessageListItem key={m.id} message={m} />)}
+          {sections.map((item, i)=> <SectionListItem  section={item} key={i} />)}
         </IonList>
       </IonContent>
+      <IonFooter>
+        <IonToolbar>
+          <IonTitle>Inbox</IonTitle>
+        </IonToolbar>
+      </IonFooter>
     </IonPage>
   );
 };
