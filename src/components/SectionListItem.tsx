@@ -1,26 +1,40 @@
+import { useState } from 'react'
 import {
   IonItem,
-  IonLabel,
-  IonNote
-  } from '@ionic/react';
-import { Message } from '../data/messages';
+  IonModal,
+  IonButton,
+  IonFooter,
+  IonToolbar,
+  IonContent
+} from '@ionic/react';
 import { Sections } from '../data/sections';
-import './MessageListItem.css';
+import { descr } from '../data/descriptions';
+import './SectionListItem.css';
 
 interface SectionListItemProps {
   section: Sections;
 }
 
 const SectionListItem: React.FC<SectionListItemProps> = ({ section }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const src = section.path as keyof typeof descr
   return (
-    <IonItem routerLink={`/section/${section.path}`} detail={false}>
-      <div slot="start" className="dot dot-unread"></div>
-      <IonLabel className="ion-text-wrap">
-        <h2>
+    <div>
+      <IonItem routerLink={`/section/${section.path}`} className='btn'>
+        <div className='title'>
           {section.title}
-        </h2>
-      </IonLabel>
-    </IonItem>
+        </div>
+      </IonItem>
+      <IonItem onClick={() => setIsOpen(true)} button>?</IonItem>
+      <IonModal  isOpen={isOpen}>
+        <IonContent>{descr[src]}</IonContent>
+        <IonFooter>
+          <IonToolbar>
+            <IonButton onClick={() => setIsOpen(false)}>Cancel</IonButton>
+          </IonToolbar>
+        </IonFooter></IonModal>
+    </div>
   );
 };
 

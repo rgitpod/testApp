@@ -1,11 +1,9 @@
 import {
     IonItem,
-    IonLabel,
-    IonNote
+    IonLabel
     } from '@ionic/react';
-  import { Message } from '../data/messages';
   import { Index } from '../data/sections';
-  import './MessageListItem.css';
+  import './ParagraphListItem.css';
   
   interface ParagraphListItemProps {
     paragraph: Index;
@@ -15,7 +13,6 @@ import {
   const ParagraphListItem: React.FC<ParagraphListItemProps> = ({ paragraph, secName }) => {
     return (
       <IonItem routerLink={`/section/${secName}/${paragraph.path}`} detail={false}>
-        <div slot="start" className="dot dot-unread"></div>
         <IonLabel className="ion-text-wrap">
           <h4>
             {paragraph.title}

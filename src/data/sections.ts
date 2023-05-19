@@ -16,6 +16,10 @@ const sections: Sections[] = [
     {
         title: 'Морфология',
         path: 'morphology'
+    },
+    {
+        title: 'Синтаксис',
+        path: 'morphology'
     }
 ]
 

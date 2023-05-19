@@ -14,10 +14,10 @@ import {
   useIonViewWillEnter,
 } from '@ionic/react';
 import { useParams } from 'react-router';
-import './ViewMessage.css';
 import ParagraphListItem from '../components/ParagraphListItem';
+import Footer from '../components/Footer';
 
-function ViewSection() {
+const ViewSection = () => {
   const [section, setSection] = useState([]);
   const { secName } = useParams<{ secName: string }>();
 
@@ -30,17 +30,11 @@ function ViewSection() {
   });
 
   return (
-    <IonPage id="view-message-page">
+    <IonPage>
       <IonContent fullscreen>
         <IonList>{section.map((item, i) => <ParagraphListItem paragraph={item} secName={secName} key={i} />)}</IonList>
       </IonContent>
-      <IonFooter translucent>
-        <IonToolbar>
-          <IonButtons slot="start">
-            <IonBackButton defaultHref="/home"></IonBackButton>
-          </IonButtons>
-        </IonToolbar>
-      </IonFooter>
+      <Footer />
     </IonPage>
   );
 }

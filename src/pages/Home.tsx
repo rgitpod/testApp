@@ -12,35 +12,40 @@ import {
   IonRefresherContent,
   IonTitle,
   IonToolbar,
-  useIonViewWillEnter
+  useIonViewWillEnter,
+  IonItem,
+  IonIcon,
+  IonLabel,
+  IonToggle
 } from '@ionic/react';
 import './Home.css';
+import Footer from '../components/Footer';
+import { moon } from 'ionicons/icons';
 
 const Home: React.FC = () => {
+  const toggleDarkModeHandler = () => document.body.classList.toggle('dark');
+  console.log(window.matchMedia('(prefers-color-scheme: dark)'))
   return (
     <IonPage id="home-page">
       <IonContent fullscreen>
         <IonRefresher slot="fixed">
           <IonRefresherContent></IonRefresherContent>
         </IonRefresher>
-
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">
-              Inbox
-            </IonTitle>
-          </IonToolbar>
-        </IonHeader>
-
+        <IonItem lines="none">
+            <IonIcon slot="start" icon={moon} />
+            <IonLabel>Dark Mode</IonLabel>
+            <IonToggle
+              slot="end"
+              name="darkMode"
+              onIonChange={toggleDarkModeHandler}
+              aria-label="Email"
+            />
+          </IonItem>
         <IonList>
           {sections.map((item, i)=> <SectionListItem  section={item} key={i} />)}
         </IonList>
       </IonContent>
-      <IonFooter>
-        <IonToolbar>
-          <IonTitle>Inbox</IonTitle>
-        </IonToolbar>
-      </IonFooter>
+      <Footer />
     </IonPage>
   );
 };
