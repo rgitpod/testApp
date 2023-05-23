@@ -20,9 +20,9 @@ const SectionListItem: React.FC<SectionListItemProps> = ({ section }) => {
 
   const src = section.path as keyof typeof descr
   return (
-    <div>
+    <div className='title'>
       <IonItem routerLink={`/section/${section.path}`} className='btn'>
-        <div className='title'>
+        <div>
           {section.title}
         </div>
       </IonItem>

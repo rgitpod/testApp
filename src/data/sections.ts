@@ -6,6 +6,7 @@ export interface Sections {
 export interface Index {
     title: string
     path: string
+    sub?: boolean
 }
 
 const sections: Sections[] = [

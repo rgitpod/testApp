@@ -12,10 +12,12 @@ import {
   IonPage,
   IonToolbar,
   useIonViewWillEnter,
+  IonAccordionGroup,
 } from '@ionic/react';
 import { useParams } from 'react-router';
 import ParagraphListItem from '../components/ParagraphListItem';
 import Footer from '../components/Footer';
+import { Index } from '../data/sections';
 
 const ViewSection = () => {
   const [section, setSection] = useState([]);
@@ -32,7 +34,9 @@ const ViewSection = () => {
   return (
     <IonPage>
       <IonContent fullscreen>
-        <IonList>{section.map((item, i) => <ParagraphListItem paragraph={item} secName={secName} key={i} />)}</IonList>
+        <IonAccordionGroup>
+        <IonList>{section.map((item: Index, i) => <ParagraphListItem paragraph={item} secName={secName} key={i} />)}</IonList>
+        </IonAccordionGroup>
       </IonContent>
       <Footer />
     </IonPage>

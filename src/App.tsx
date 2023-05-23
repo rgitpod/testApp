@@ -36,7 +36,7 @@ const App: React.FC = () => (
         </Route>
         <Route path="/home" exact={true} component={Home} />
         <Route path="/section/:secName" component={ViewSection} exact={true}/>
-        <Route path='/section/:secName/:paraName' component={ViewParagraph} />
+        <Route path='/section/:secName/:paraName/:subName?' component={ViewParagraph} />
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>

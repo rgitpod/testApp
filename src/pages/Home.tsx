@@ -24,7 +24,7 @@ import { moon } from 'ionicons/icons';
 
 const Home: React.FC = () => {
   const toggleDarkModeHandler = () => document.body.classList.toggle('dark');
-  console.log(window.matchMedia('(prefers-color-scheme: dark)'))
+
   return (
     <IonPage id="home-page">
       <IonContent fullscreen>

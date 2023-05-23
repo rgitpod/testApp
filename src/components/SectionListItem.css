@@ -3,7 +3,7 @@ ion-footer ion-title {
   font-weight: normal;
 }
 
-div {
+.title {
   display: flex;
   flex-direction: row;
 }
