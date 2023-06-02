@@ -18,8 +18,15 @@ interface ParagraphListItemProps {
   secName: string;
 }
 
-function ParagraphListItem({ paragraph, secName }: ParagraphListItemProps) {
+function ParagraphListItem({
+  paragraph,
+  secName,
+  favs,
+  i,
+  setFav,
+}: ParagraphListItemProps) {
   const [subCont, setSubCont] = useState([]);
+  const [inFavs, setInFavs] = useState(false);
 
   useEffect(() => {
     const getSub = async () => {
@@ -31,26 +38,31 @@ function ParagraphListItem({ paragraph, secName }: ParagraphListItemProps) {
     paragraph.sub && getSub();
   });
 
-  const addFav = () => {
-    
-  }
-
   return paragraph.sub ? (
     <IonAccordion>
       <IonItem slot="header" color="light">
         <IonLabel>{paragraph.title}</IonLabel>
       </IonItem>
       <IonList slot="content">
-        {subCont.map((item: Index, i) => (
-          <IonItem
-            routerLink={`/section/${secName}/${paragraph.path}/${item.path}`}
-            detail={false}
-            key={i}
-          >
-            <IonLabel className="paragraphItem">
-              <h4>{item.title}</h4>
-            </IonLabel>
-          </IonItem>
+        {subCont.map((item: Index, j) => (
+          <div className="parItem" key={i}>
+            <IonItem
+              routerLink={`/section/${secName}/${paragraph.path}/${item.path}`}
+              detail={false}
+              className="parTitle"
+            >
+              <p>{item.title}</p>
+            </IonItem>
+            <Btn
+              i={j}
+              path={paragraph.path}
+              inFavs={inFavs}
+              setFav={setFav}
+              favs={favs}
+              setInFavs={setInFavs}
+              sub={paragraph.sub}
+            />
+          </div>
         ))}
       </IonList>
     </IonAccordion>
@@ -63,11 +75,38 @@ function ParagraphListItem({ paragraph, secName }: ParagraphListItemProps) {
       >
         <p>{paragraph.title}</p>
       </IonItem>
-      <IonButton fill="clear" color="dark" className="parBook" onClick={() => addFav()}>
-        <IonIcon icon={bookmarkOutline} />
-      </IonButton>
+      <Btn
+        i={i}
+        path={"main"}
+        inFavs={inFavs}
+        setFav={setFav}
+        favs={favs}
+        setInFavs={setInFavs}
+        sub={false}
+      />
     </div>
   );
 }
+
+const Btn = ({ i, path, inFavs, setFav, favs, setInFavs, sub }) => {
+  useEffect(() => {
+    if (Object.keys(favs).length >= 0) {
+      const f = sub ? favs[path] : favs?.main;
+      const inf = f?.includes(i);
+      setInFavs(inf);
+    }
+  }, [favs]);
+
+  return (
+    <IonButton
+      fill="clear"
+      color="dark"
+      className="parBook"
+      onClick={() => setFav(i, path, inFavs)}
+    >
+      <IonIcon icon={inFavs ? bookmark : bookmarkOutline} />
+    </IonButton>
+  );
+};
 
 export default ParagraphListItem;

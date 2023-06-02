@@ -9,7 +9,7 @@ export async function initStore() {
     await storage.create()
 }
 
-export async function set(key: string, val: []) {
+export async function set(key: string, val: {}) {
     await storage.set(key, val)
 }
 
